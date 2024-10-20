@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: Event API
+  version: 1.0.0
+paths:
+  /events:
+    get:
+      summary: Get events
+      parameters:
+        - name: limit
+          in: query
+          description: The number of events to return
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset for events
+          required: false
+          schema:
+            type: integer
+          default: 0
+        - name: name
+          in: query
+          description: The name to filter events
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '4XX':
+          description: Client error
+        '5XX':
+          description: Server error
+  /events/name/{name}:
+    get:
+      summary: Get events by name
+      parameters:
+        - name: name
+          in: path
+          description: The name of the event
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '4XX':
+          description: Client error
+        '5XX':
+          description: Server error
+  /events/{id}:
+    get:
+      summary: Get event by ID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the event
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Event details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '4XX':
+          description: Client error
+        '5XX':
+          description: Server error
+  /hashtags:
+    get:
+      summary: Get hashtags
+      parameters:
+        - name: limit
+          in: query
+          description: The number of hashtags to return
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset for hashtags
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of hashtags
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HashTag'
+        '500':
+          description: Internal server error
+  /hashtags/{id}:
+    get:
+      summary: Get hashtag by ID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the hashtag
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Hashtag details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HashTag'
+        '400':
+          description: Invalid or missing ID
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        date:
+          type: string
+          format: date
+        location:
+          type: string
+    HashTag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+
