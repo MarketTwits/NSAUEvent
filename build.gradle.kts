@@ -33,4 +33,6 @@ dependencies {
     implementation(libs.logback.classic)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+
+    implementation ("io.github.smiley4:ktor-swagger-ui:4.1.2")
 }

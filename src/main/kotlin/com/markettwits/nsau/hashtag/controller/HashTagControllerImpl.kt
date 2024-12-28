@@ -4,7 +4,7 @@ import com.markettwits.nsau.hashtag.datastore.FakeHashTagsDataStore
 import com.markettwits.nsau.hashtag.model.HashTag
 
 class HashTagControllerImpl(private val dataSource: FakeHashTagsDataStore) :
-    com.markettwits.nsau.hashtag.controller.HashTagController {
+    HashTagController {
 
     override fun getHashTags(limit: Int?, offset: Int): Result<List<HashTag>> {
         return runCatching {
